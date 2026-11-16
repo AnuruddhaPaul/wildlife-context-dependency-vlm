@@ -1,0 +1,5 @@
+hypothesis,paper_verdict,16c-Q verdict,16c-G verdict,17c-G verdict,evidence (16c-Q)
+H1: BioCLIP has lower CDS than general CLIP,Rejected,Rejected,Rejected,Rejected,"CDS B/32 -3.9, L/14 9.1, BioCLIP 31.2"
+H2: distinctive species are less context dependent,Partially supported,Partially supported,Partially supported,Partially supported,"dog CDS negative in 3/3 models; BioCLIP CDS opossum/rodent = 93, 94"
+H3: context removal degrades accuracy,Partially supported,Partially supported,Partially supported,Partially supported,"CDS > 0 (degrades): ViT-L/14, BioCLIP | CDS < 0 (improves): ViT-B/32"
+H4: habitat prompts increase context dependency,Mixed,Mixed,Mixed,Mixed,"habitat-neutral (pp): ViT-B/32 +2.2, ViT-L/14 +8.2, BioCLIP -10.2 | wildlife-neutral: ViT-B/32 +11.5, ViT-L/14 +9.4, BioCLIP -10.6"

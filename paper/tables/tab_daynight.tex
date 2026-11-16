@@ -1,0 +1,20 @@
+\begin{table}[t]
+\caption{Context dependence by frame type (QuickGELU, Experiment 1). Colour frames are daytime; grayscale frames are infrared night images.}
+\label{tab:daynight}
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll r rrr}
+\toprule
+Model & Frames & $n$ & Acc$_\text{full}$ & Acc$_\text{UT}$ & CDS \\
+\midrule
+ViT-B/32 & Colour & 632 & 51.9 & 61.1 & $-$17.7 \\
+ & Infrared & 840 & 25.5 & 21.1 & 17.3 \\
+\midrule
+ViT-L/14 & Colour & 632 & 69.2 & 74.2 & $-$7.3 \\
+ & Infrared & 840 & 51.8 & 38.6 & 25.5 \\
+\midrule
+BioCLIP & Colour & 632 & 54.9 & 44.5 & 19.0 \\
+ & Infrared & 840 & 37.6 & 20.8 & 44.6 \\
+\bottomrule
+\end{tabular}
+\end{table}

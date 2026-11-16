@@ -1,0 +1,4 @@
+model,acc_full,acc_ultra_tight,CDS,acc_baseline,acc_mismatch,CR,n_mismatch,PS,BG_only,n_bg,conf_full,conf_ultra_tight,conf_acc_gap_ut,neg_cds_species,n_species
+ViT-B/32,32.337,34.511,-6.723,14.81,15.761,106.422,2944,44.737,5.0,80,48.522,42.873,8.362,8,16
+ViT-L/14,65.217,57.473,11.875,41.78,32.235,77.154,2944,15.488,11.25,80,66.546,56.673,-0.8,4,16
+BioCLIP,45.516,29.62,34.925,26.155,11.821,45.195,2944,34.395,3.75,80,73.963,67.453,37.833,0,16

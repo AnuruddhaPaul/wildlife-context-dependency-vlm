@@ -1,0 +1,7 @@
+model,variant,acc_plain_gelu
+ViT-B/32,crop_full,34.48
+ViT-B/32,crop_ultra_tight,36.58
+ViT-B/32,orig,18.19
+ViT-L/14,crop_full,63.04
+ViT-L/14,crop_ultra_tight,55.79
+ViT-L/14,orig,41.16

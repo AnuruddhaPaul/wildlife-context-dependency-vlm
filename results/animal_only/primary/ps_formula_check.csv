@@ -1,0 +1,4 @@
+model,PS_reported,PS_recomputed_from_paper_table4_mean_denominator,PS_recomputed_max_denominator,PS_recomputed_min_denominator,PS_from_our_accuracies
+ViT-B/32,45.7,45.63,34.88,53.55,61.54
+ViT-L/14,25.2,25.28,22.6,29.2,25.8
+BioCLIP,37.4,37.52,29.84,42.53,34.39

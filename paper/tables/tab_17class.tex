@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\caption{Sensitivity to the label set and activation. 17 classes include the non-animal control `car'. 17c-GELU: plain-GELU build (the default of recent open\_clip for the OpenAI weights); 17c-QG: QuickGELU for the OpenAI models, native GELU for BioCLIP; 16c-QG: our primary configuration. Samples are identical across rows except for the removed car boxes.}
+\label{tab:17class}
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l rrr rrr rrr}
+\toprule
+ & \multicolumn{3}{c}{17c-GELU} & \multicolumn{3}{c}{17c-QG} & \multicolumn{3}{c}{16c-QG (primary)}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Model & Acc$_\text{full}$ & CDS & CR & Acc$_\text{full}$ & CDS & CR & Acc$_\text{full}$ & CDS & CR \\
+\midrule
+ViT-B/32 & 34.5 & $-$6.1 & 105 & 38.7 & $-$3.3 & 108 & 36.8 & $-$3.9 & 111 \\
+ViT-L/14 & 63.0 & 11.5 & 78 & 55.9 & 9.0 & 85 & 59.2 & 9.1 & 85 \\
+BioCLIP & 42.6 & 34.8 & 45 & 42.6 & 34.8 & 45 & 45.0 & 31.2 & 44 \\
+\bottomrule
+\end{tabular}
+\end{table*}

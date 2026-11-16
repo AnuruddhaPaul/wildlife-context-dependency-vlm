@@ -1,0 +1,19 @@
+\begin{table}[t]
+\caption{Experiment 3: accuracy (\%) on original images for four prompt templates, and Prompt Sensitivity PS $=(\max-\min)/\text{mean}\times100$.}
+\label{tab:prompts}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{ll rrrr r}
+\toprule
+Act. & Model & Neutral & Habitat & Wildlife & Scient. & PS \\
+\midrule
+QuickGELU & ViT-B/32 & 15.1 & 17.3 & 26.6 & 16.1 & 61.5 \\
+ & ViT-L/14 & 35.9 & 44.1 & 45.2 & 34.9 & 25.8 \\
+ & BioCLIP & 28.6 & 18.4 & 18.0 & 21.5 & 49.0 \\
+\midrule
+GELU & ViT-B/32 & 14.8 & 19.1 & 22.9 & 15.5 & 44.7 \\
+ & ViT-L/14 & 41.8 & 45.4 & 45.7 & 39.1 & 15.5 \\
+ & BioCLIP & 26.2 & 18.8 & 20.5 & 19.8 & 34.4 \\
+\bottomrule
+\end{tabular}
+\end{table}

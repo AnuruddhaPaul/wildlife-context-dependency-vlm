@@ -1,0 +1,7 @@
+model,frames,n,acc_full,acc_ut,CDS
+ViT-B/32,colour (day),632,51.9,61.08,-17.68
+ViT-B/32,grayscale / IR (night),840,25.48,21.07,17.29
+ViT-L/14,colour (day),632,69.15,74.21,-7.32
+ViT-L/14,grayscale / IR (night),840,51.79,38.57,25.52
+BioCLIP,colour (day),632,54.91,44.46,19.02
+BioCLIP,grayscale / IR (night),840,37.62,20.83,44.62

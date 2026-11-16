@@ -1,0 +1,18 @@
+species,habitat_1,habitat_2,rationale
+badger,arctic,desert,required by task (burrowing woodland/grassland mustelid)
+mountain_lion,arctic,desert,required by task
+opossum,arctic,desert,"warm-temperate woodland species, poorly adapted to cold or arid terrain"
+raccoon,arctic,desert,riparian/woodland species; snow and dry sand are both foreign
+squirrel,arctic,desert,forest/tree-dependent species
+bobcat,arctic,urban,solitary forest/scrub carnivore; avoids dense built-up areas
+deer,arctic,urban,task: no aquatic for deer; woodland browser
+lizard,aquatic,urban,"task: no desert for lizard; ectotherm, not aquatic, not built-up"
+bird,arctic,aquatic,"terrestrial passerine/quail-type birds, not snow or open-water species"
+coyote,arctic,aquatic,desert/scrub-adapted canid
+fox,arctic,aquatic,scrub/woodland canid
+rabbit,arctic,aquatic,scrub/grassland lagomorph
+rodent,arctic,aquatic,terrestrial small rodents
+skunk,arctic,aquatic,terrestrial scrub/woodland omnivore
+car,desert,aquatic,"non-animal control: no natural habitat, placed in sand / on water"
+cat,desert,aquatic,"domestic cat, placed on sand / on water"
+dog,desert,aquatic,"domestic dog, placed on sand / on water"

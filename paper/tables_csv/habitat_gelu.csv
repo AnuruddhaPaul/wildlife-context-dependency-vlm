@@ -1,0 +1,13 @@
+,model,habitat,correct,total,acc
+0,ViT-B/32,arctic,203,1172,17.3208
+1,ViT-B/32,desert,37,572,6.4685
+2,ViT-B/32,aquatic,152,900,16.8889
+3,ViT-B/32,urban,72,300,24.0
+4,ViT-L/14,arctic,343,1172,29.2662
+5,ViT-L/14,desert,165,572,28.8462
+6,ViT-L/14,aquatic,329,900,36.5556
+7,ViT-L/14,urban,112,300,37.3333
+8,BioCLIP,arctic,122,1172,10.4096
+9,BioCLIP,desert,38,572,6.6434
+10,BioCLIP,aquatic,121,900,13.4444
+11,BioCLIP,urban,67,300,22.3333

@@ -1,0 +1,16 @@
+model,level,margin,acc,mean_conf,n
+ViT-B/32,full,1.0,34.48,48.82,1572
+ViT-B/32,loose,0.5,38.68,50.9,1572
+ViT-B/32,medium,0.25,38.93,49.54,1572
+ViT-B/32,tight,0.05,38.49,46.15,1572
+ViT-B/32,ultra_tight,0.0,36.58,43.41,1572
+ViT-L/14,full,1.0,63.04,65.52,1572
+ViT-L/14,loose,0.5,64.19,66.14,1572
+ViT-L/14,medium,0.25,63.17,63.57,1572
+ViT-L/14,tight,0.05,57.89,58.68,1572
+ViT-L/14,ultra_tight,0.0,55.79,56.18,1572
+BioCLIP,full,1.0,42.56,72.62,1572
+BioCLIP,loose,0.5,41.98,72.7,1572
+BioCLIP,medium,0.25,38.04,71.04,1572
+BioCLIP,tight,0.05,31.49,67.24,1572
+BioCLIP,ultra_tight,0.0,27.74,66.51,1572

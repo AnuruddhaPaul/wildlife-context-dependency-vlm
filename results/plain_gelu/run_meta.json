@@ -1,0 +1,74 @@
+{
+  "logit_scale": {
+    "ViT-B/32": 100.0,
+    "ViT-L/14": 100.0,
+    "BioCLIP": 100.0
+  },
+  "model_info": {
+    "ViT-B/32": {
+      "open_clip_name": "ViT-B-32",
+      "pretrained": "openai",
+      "quick_gelu_forced": false,
+      "patch_size": [
+        32,
+        32
+      ],
+      "image_size": [
+        224,
+        224
+      ],
+      "params_total_M": 151.3,
+      "params_visual_M": 87.8
+    },
+    "ViT-L/14": {
+      "open_clip_name": "ViT-L-14",
+      "pretrained": "openai",
+      "quick_gelu_forced": false,
+      "patch_size": [
+        14,
+        14
+      ],
+      "image_size": [
+        224,
+        224
+      ],
+      "params_total_M": 427.6,
+      "params_visual_M": 304.0
+    },
+    "BioCLIP": {
+      "open_clip_name": "hf-hub:imageomics/bioclip",
+      "pretrained": null,
+      "quick_gelu_forced": false,
+      "patch_size": [
+        16,
+        16
+      ],
+      "image_size": [
+        224,
+        224
+      ],
+      "params_total_M": 149.6,
+      "params_visual_M": 86.2
+    }
+  },
+  "hf_hub_cache": "D:\\HUG_MODELs",
+  "timings": {
+    "load_models_s": 5.6,
+    "embed_crop_full_s": 38.4,
+    "embed_crop_loose_s": 38.2,
+    "embed_crop_medium_s": 38.0,
+    "embed_crop_tight_s": 38.1,
+    "embed_crop_ultra_tight_s": 37.9,
+    "embed_orig_s": 42.8,
+    "embed_mismatch_arctic_s": 74.1,
+    "embed_mismatch_desert_s": 57.0,
+    "embed_mismatch_aquatic_s": 71.8,
+    "embed_mismatch_urban_s": 38.3,
+    "embed_bgonly_s": 24.4,
+    "predictions_s": 0.9,
+    "total_s": 505.5
+  },
+  "batch_size": 64,
+  "n_samples": 1572,
+  "smoke": false
+}

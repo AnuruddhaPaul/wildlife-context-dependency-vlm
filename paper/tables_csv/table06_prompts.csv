@@ -1,0 +1,16 @@
+run,model,neutral,habitat,wildlife,scientific,PS,best,worst
+Paper,ViT-B/32,18.8,20.7,28.1,18.3,45.63,wildlife,scientific
+Paper,ViT-L/14,40.2,44.3,46.9,36.3,25.28,wildlife,scientific
+Paper,BioCLIP,24.8,18.4,17.4,18.3,37.52,neutral,wildlife
+17c-G,ViT-B/32,18.19,21.63,25.76,19.47,35.6,wildlife,neutral
+17c-G,ViT-L/14,41.16,46.5,48.35,41.03,16.53,wildlife,scientific
+17c-G,BioCLIP,24.49,17.62,19.21,18.58,34.39,neutral,habitat
+17c-Q,ViT-B/32,18.45,19.85,28.82,20.48,47.35,wildlife,neutral
+17c-Q,ViT-L/14,34.03,43.13,47.46,34.61,33.72,wildlife,neutral
+17c-Q,BioCLIP,24.49,17.62,19.21,18.58,34.39,neutral,habitat
+16c-Q,ViT-B/32,15.08,17.26,26.63,16.1,61.54,wildlife,neutral
+16c-Q,ViT-L/14,35.87,44.09,45.24,34.92,25.8,wildlife,scientific
+16c-Q,BioCLIP,28.6,18.41,18.0,21.54,48.98,neutral,wildlife
+16c-G,ViT-B/32,14.81,19.09,22.89,15.49,44.74,wildlife,neutral
+16c-G,ViT-L/14,41.78,45.38,45.72,39.06,15.49,wildlife,scientific
+16c-G,BioCLIP,26.15,18.82,20.52,19.84,34.39,neutral,habitat

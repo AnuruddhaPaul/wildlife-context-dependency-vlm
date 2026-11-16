@@ -1,0 +1,4 @@
+model,paper_PS_printed,recomputed_mean_denominator,recomputed_max_denominator,recomputed_min_denominator
+ViT-B/32,45.7,45.63,34.88,53.55
+ViT-L/14,25.2,25.28,22.6,29.2
+BioCLIP,37.4,37.52,29.84,42.53

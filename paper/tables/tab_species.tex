@@ -1,0 +1,30 @@
+\begin{table}[t]
+\caption{Per-species CDS (\%), sorted by BioCLIP/QuickGELU; defined as 0 where Acc$_\text{full}=0$. B = ViT-B/32, L = ViT-L/14, Bio = BioCLIP.}
+\label{tab:species}
+\centering\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{l rrr rrr}
+\toprule
+ & \multicolumn{3}{c}{QuickGELU} & \multicolumn{3}{c}{GELU}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Species & B & L & Bio & B & L & Bio \\
+\midrule
+rodent & 61 & 67 & 94 & $-$133 & 56 & 89 \\
+opossum & 80 & 32 & 93 & 75 & 55 & 100 \\
+badger & 32 & 58 & 77 & 46 & 64 & 69 \\
+raccoon & 36 & 26 & 55 & $-$40 & 24 & 57 \\
+lizard & $-$17 & $-$1 & 51 & $-$20 & $-$3 & 47 \\
+mountain lion & $-$27 & 9 & 50 & 0 & 10 & 20 \\
+coyote & 22 & $-$1 & 44 & 17 & 11 & 32 \\
+skunk & 5 & 33 & 41 & 2 & 26 & 40 \\
+squirrel & $-$12 & 8 & 29 & 0 & 17 & 47 \\
+bird & $-$16 & 1 & 17 & $-$5 & $-$1 & 16 \\
+fox & 16 & 3 & 17 & 11 & 11 & 9 \\
+deer & $-$18 & 2 & 16 & $-$26 & 2 & 21 \\
+cat & $-$160 & $-$217 & 14 & $-$400 & $-$141 & 50 \\
+bobcat & 10 & 3 & 14 & 12 & 10 & 9 \\
+rabbit & $-$50 & 4 & 13 & $-$35 & 9 & 20 \\
+dog & $-$96 & $-$120 & $-$20 & $-$158 & $-$29 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}

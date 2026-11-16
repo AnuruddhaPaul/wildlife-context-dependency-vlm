@@ -1,0 +1,13 @@
+,model,prompt,acc
+0,ViT-B/32,neutral,15.0815
+1,ViT-B/32,habitat,17.2554
+2,ViT-B/32,wildlife,26.6304
+3,ViT-B/32,scientific,16.1005
+4,ViT-L/14,neutral,35.8696
+5,ViT-L/14,habitat,44.0897
+6,ViT-L/14,wildlife,45.2446
+7,ViT-L/14,scientific,34.9185
+8,BioCLIP,neutral,28.6005
+9,BioCLIP,habitat,18.4103
+10,BioCLIP,wildlife,18.0027
+11,BioCLIP,scientific,21.5353

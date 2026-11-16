@@ -1,0 +1,93 @@
+{
+  "env": {
+    "python": "3.13.6",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "torch": "2.11.0+cu128",
+    "cuda_build": "12.8",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5070 Ti",
+    "capability": "sm_120",
+    "gpu_mem_gb": 15.9,
+    "gpu_matmul_max_abs_err_vs_cpu": 0.00012969970703125,
+    "open_clip": "4.2.2",
+    "device_used": "cuda"
+  },
+  "seed": 42,
+  "smoke": false,
+  "classes": [
+    "badger",
+    "bird",
+    "bobcat",
+    "cat",
+    "coyote",
+    "deer",
+    "dog",
+    "fox",
+    "lizard",
+    "mountain_lion",
+    "opossum",
+    "rabbit",
+    "raccoon",
+    "rodent",
+    "skunk",
+    "squirrel"
+  ],
+  "n_classes": 16,
+  "random_baseline_pct": 6.25,
+  "activations": [
+    "quickgelu",
+    "gelu"
+  ],
+  "models": [
+    "ViT-B/32",
+    "ViT-L/14",
+    "BioCLIP"
+  ],
+  "n_samples": 1472,
+  "n_bg_only": 80,
+  "n_mismatch_per_model_activation": 2944,
+  "sampling": "per bounding box, up to 100 per species, numpy default_rng(42), car dropped after the 17-class draw",
+  "params": {
+    "ViT-B/32": {
+      "params_M": 151.3,
+      "patch": 32,
+      "layers_swapped": 24
+    },
+    "ViT-L/14": {
+      "params_M": 427.6,
+      "patch": 14,
+      "layers_swapped": 36
+    },
+    "BioCLIP": {
+      "params_M": 149.6,
+      "patch": 16,
+      "layers_swapped": 24
+    }
+  },
+  "feature_check_vs_earlier_runs": {
+    "ViT-B/32 / quickgelu": 0.0,
+    "ViT-L/14 / quickgelu": 1.1920928955078125e-07,
+    "BioCLIP / gelu": 0.0,
+    "ViT-B/32 / gelu": 0.0,
+    "ViT-L/14 / gelu": 1.1920928955078125e-07
+  },
+  "timings": {
+    "image_stats": 1.7,
+    "load_models": 5.9,
+    "embed_crop_full_s": 54.4,
+    "embed_crop_loose_s": 54.2,
+    "embed_crop_medium_s": 54.1,
+    "embed_crop_tight_s": 54.4,
+    "embed_crop_ultra_tight_s": 54.1,
+    "embed_orig_s": 58.5,
+    "embed_mismatch_arctic_s": 80.7,
+    "embed_mismatch_desert_s": 57.6,
+    "embed_mismatch_aquatic_s": 73.7,
+    "embed_mismatch_urban_s": 42.9,
+    "embed_bgonly_s": 11.5,
+    "experiments_embedding_total_s": 596.2,
+    "predictions": 2.1
+  },
+  "batch_size": 64,
+  "hf_cache": "D:\\HUG_MODELs"
+}

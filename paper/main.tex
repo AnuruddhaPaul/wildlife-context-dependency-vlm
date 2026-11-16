@@ -1,0 +1,229 @@
+% IEEE conference format. Compile with pdfLaTeX (Overleaf: upload this folder, main document = main.tex).
+% All numbers in the text come from numbers.tex, which is generated from the saved results (tools/make_paper_assets.py).
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{url}
+\input{numbers}
+
+\begin{document}
+
+\title{Visual Context Dependency in Wildlife Classification:\\
+A Systematic Study of Vision-Language Models}
+
+\author{\IEEEauthorblockN{[Author name(s)]}
+\IEEEauthorblockA{[Department, Institution]\\
+[City, Country]\\
+[e-mail address]}}
+
+\maketitle
+
+\begin{abstract}
+Zero-shot vision-language models (VLMs) promise camera-trap classification without species-specific training, but it is unclear how much of their accuracy comes from the animal itself and how much from the surrounding habitat. We study CLIP ViT-B/32, CLIP ViT-L/14 and BioCLIP on \NSamples{} bounding-box samples of 16 animal species from the Caltech Camera Traps dataset, using four controlled experiments: progressive removal of context around the animal, placement of the animal on synthetic wrong-habitat backgrounds, variation of the text prompt, and prediction from images in which the animal is blurred. Three metrics summarise the results: the Context Dependency Score (CDS), Context Robustness (CR) and Prompt Sensitivity (PS). BioCLIP, the biology-specialised model, is the most context dependent (CDS \QBioCDS\% with QuickGELU and \GBioCDS\% with GELU; 95\% CI \QBioCDSLo--\QBioCDSHi\%), ViT-L/14 is moderately dependent (\QVLCDS\%), and ViT-B/32 is not distinguishable from zero (\QVBCDS\%, 95\% CI \QVBCDSLo{} to \QVBCDSHi\%). BioCLIP also retains only \QBioCR\% of its accuracy on wrong-habitat composites and is by far the worst calibrated model. Three methodological findings change how such studies should be read: the activation function used to instantiate the OpenAI weights moves accuracy by up to \MaxDeltaFull{} points and PS by up to \MaxDeltaPS{} points; for the OpenAI models, context dependence changes sign between daytime colour frames and infrared night frames; and a non-animal control class whose boxes fill the frame cannot validate the metric. Code, per-image predictions and notebooks are provided.
+\end{abstract}
+
+\begin{IEEEkeywords}
+wildlife monitoring, camera traps, vision-language models, CLIP, BioCLIP, context bias, shortcut learning, zero-shot classification
+\end{IEEEkeywords}
+
+\section{Introduction}
+Camera traps have become one of the most widely used tools for studying wildlife. Deployed in forests, grasslands and wetlands, they capture millions of images per year without disturbing animals or requiring field observers~\cite{swanson2015,burton2015}. The bottleneck is not data collection but labelling: images must be identified by trained people before they support population, occupancy or poaching analyses. Convolutional networks trained on large labelled collections now approach expert accuracy at well-studied sites~\cite{norouzzadeh2018,tabak2019,willi2019}, and general detectors such as MegaDetector~\cite{beery2019} localise animals without site-specific training. Supervised classifiers, however, need many labelled examples per species and degrade when the deployment site differs from the training sites~\cite{beery2018,schneider2020}.
+
+Vision-language models offer a different route. CLIP~\cite{radford2021} learns a joint embedding of images and text from hundreds of millions of image--text pairs, so that a species can be recognised by comparing an image embedding with the embedding of a sentence such as ``a photo of a \emph{species}'' without any labelled examples. BioCLIP~\cite{stevens2024} continues this idea on a large collection of biological images with taxonomic text. For ecologists, such zero-shot classifiers could remove the need to label images for every new project.
+
+A basic question has received little attention, however: \emph{do these models identify an animal from its appearance, or from the habitat around it?} A model that recognises a deer because the image shows woodland will work where deer stand in woodland and fail in suburban gardens, farmland or structurally different forest---exactly the situations (new sites, changing habitats, urban edges) in which conservation practitioners most need reliable output. This is an instance of shortcut learning~\cite{geirhos2020}: networks may exploit correlations in the training data that do not hold at test time, as shown for texture~\cite{geirhos2019}, image backgrounds~\cite{xiao2021} and object co-occurrence~\cite{singh2020}. Wildlife imagery adds a twist: species--habitat correlations are ecologically real, and a fixed camera makes the background a reliable proxy of the site, so context is genuinely informative and at the same time a liability when conditions change.
+
+We make this question measurable. Ground-truth bounding boxes let us remove context in controlled steps, paste the animal onto wrong habitats, and blur the animal while keeping the habitat. Our contributions are:
+\begin{itemize}
+\item a four-experiment protocol with three reusable metrics (CDS, CR, PS) for auditing context reliance in any zero-shot wildlife classifier;
+\item a controlled comparison of CLIP ViT-B/32, CLIP ViT-L/14 and BioCLIP on \NSamples{} samples of 16 animal species, with bootstrap confidence intervals;
+\item three methodological findings that affect the interpretation of such studies: sensitivity to the activation function used to instantiate pretrained weights, a sign change of context dependence between day and infrared night frames, and the failure of a non-animal control class as a validity check;
+\item open code, executed notebooks and per-image predictions, so that every number in this paper can be regenerated.
+\end{itemize}
+
+\section{Related Work}
+\textbf{Automated camera-trap classification.} Deep networks match expert accuracy on curated camera-trap data~\cite{norouzzadeh2018,willi2019,tabak2019}, but performance drops at unseen locations even within one region~\cite{beery2018,schneider2020}. Detector-first pipelines~\cite{beery2019} reduce clutter before classification. Zero-shot VLMs remove the labelling requirement, but their dependence on context has not been quantified for wildlife.
+
+\textbf{Vision-language models.} CLIP~\cite{radford2021} trains vision and text encoders contrastively; the released OpenAI weights are available through OpenCLIP~\cite{ilharco2021}. BioCLIP~\cite{stevens2024} fine-tunes a CLIP-style model on biological images with taxonomic labels. The vision backbones are Vision Transformers~\cite{dosovitskiy2021}.
+
+\textbf{Context bias and shortcut learning.} Classifiers exploit texture~\cite{geirhos2019}, backgrounds~\cite{xiao2021} and co-occurring objects~\cite{singh2020}; \cite{geirhos2020} reviews the phenomenon. We use the same idea of controlled background manipulation, but with ground-truth boxes on real camera-trap frames and with metrics that are comparable across models.
+
+\textbf{Prompt sensitivity.} The wording of a class prompt can change CLIP's accuracy substantially~\cite{radford2021}; learned prompts~\cite{zhou2022} optimise it. We instead treat prompt dependence as a robustness signal and quantify it with PS.
+
+\section{Method}
+\subsection{Data and sampling}
+We use the Caltech Camera Traps (CCT) dataset~\cite{beery2018} through the bounding-box annotation file published by LILA BC~\cite{lila} (63{,}025 images, 65{,}112 boxes, 22 categories; boxes are $[x,y,w,h]$ in pixels). The study covers 16 animal species (Table~\ref{tab:dataset}). Each \emph{sample} is one annotated box. For every species we draw up to 100 boxes at random (NumPy generator, seed 42); badger and mountain lion have only 28 and 44 boxes in total, so all are used. The \NSamples{} samples come from \NImages{} images and \NCameras{} cameras; \NRepeatImages{} images contribute more than one box. We use the original full-resolution images; their sizes were checked against the metadata, so no box rescaling was required. (The CCT20 benchmark subset contains no mountain-lion and no lizard images and could not be used.)
+
+\input{tables/tab_dataset}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_conditions}
+\caption{The experimental conditions illustrated on one sample. Top: Experiment~1, crops that keep 100\%, 50\%, 25\%, 5\% and 0\% of the box size as margin. Bottom: Experiment~2 (animal pasted at the same position on a synthetic desert or aquatic background) and Experiment~4 (animal blurred, habitat kept).}
+\label{fig:conditions}
+\end{figure*}
+
+\subsection{Models and zero-shot protocol}
+We evaluate CLIP ViT-B/32 (\ParamsVB{}\,M parameters, $\PatchVB{}\times\PatchVB{}$ patches), CLIP ViT-L/14 (\ParamsVL{}\,M, $\PatchVL{}\times\PatchVL{}$) with the OpenAI weights, and BioCLIP (\ParamsBio{}\,M, ViT-B backbone with $\PatchBio{}\times\PatchBio{}$ patches) from the \texttt{imageomics/bioclip} release, all through OpenCLIP~\cite{ilharco2021} version \OpenCLIPVer{}. BioCLIP therefore differs from ViT-B/32 in patch size and training data, which matters for the interpretation in Sec.~\ref{sec:discussion}. No model is trained or fine-tuned. Each model uses its own preprocessing (bicubic resize of the shorter side to 224 pixels followed by a centre crop) and tokenizer. For a prompt template, the 16 class names (underscores replaced by spaces) are embedded; the prediction is the class with the highest cosine similarity, and the confidence is the softmax probability of that class computed from the similarities scaled by the model's learned temperature.
+
+\subsection{Activation functions}
+The OpenAI CLIP weights were trained with the QuickGELU activation $x\,\sigma(1.702x)$, an approximation of the GELU~\cite{hendrycks2016}. Recent OpenCLIP versions instantiate the architectures named \texttt{ViT-B-32} and \texttt{ViT-L-14} with the exact GELU unless QuickGELU is requested, and only emit a warning; BioCLIP's released configuration uses the exact GELU. Because this silently changes the network, we evaluate every model with both activations by replacing all MLP activation layers of the vision and text towers, without retraining: \textbf{QuickGELU} (primary, the activation of the OpenAI weights) and \textbf{GELU}. We verified that the swapped models reproduce independently constructed models to within $1.2\times10^{-7}$ in embedding values. In a separate sweep, SiLU and ReLU collapse all three models to \mbox{2.6--9.4\%} accuracy (3--7 of 16 classes predicted), so they are not used further.
+
+\subsection{Experiments}
+\textbf{Experiment 1: gradual context removal.} The image is cropped around the box $(x,y,w,h)$ with a margin of $m\in\{100,50,25,5,0\}\%$ of the box width and height on each side, clamped to the image (``full'', ``loose'', ``medium'', ``tight'', ``ultra-tight''). Prompt: ``a photo of a \emph{species}''.
+
+\textbf{Experiment 2: context mismatch.} Baseline accuracy is measured on the original uncropped images. For every species we choose two habitats that are ecologically incompatible with it (e.g.\ no aquatic background for deer, no desert for lizard) from four synthetic backgrounds: arctic (240,248,255), desert (237,201,175), aquatic (70,130,180) and urban (169,169,169). A background is a full-size solid colour, blurred with a Gaussian of radius 12 and perturbed with Gaussian noise of standard deviation 10. The content of the animal's bounding box is pasted at its original position. This gives \NMismatch{} composites per model; the species-to-habitat assignment is released with the code and is our own choice (Sec.~\ref{sec:limits}).
+
+\textbf{Experiment 3: prompts.} The original images are classified with four templates: neutral (``a photo of a \emph{species}''), habitat (``\ldots{} in its natural habitat''), wildlife (``a wildlife camera trap image of a \emph{species}'') and scientific (``a \emph{species} specimen'').
+
+\textbf{Experiment 4: background only.} The bounding-box region is blurred with a Gaussian of radius 30 and the rest of the image is kept. We use $\NBg{}$ images (five per species, seed 42); chance is $1/16=6.25\%$.
+
+\subsection{Metrics}
+Let $\mathrm{Acc}$ denote accuracy in percent.
+\begin{align}
+\mathrm{CDS} &= \frac{\mathrm{Acc}_\text{full}-\mathrm{Acc}_\text{UT}}{\mathrm{Acc}_\text{full}}\times 100, \\
+\mathrm{CR} &= \frac{\mathrm{Acc}_\text{mismatch}}{\mathrm{Acc}_\text{baseline}}\times 100, \\
+\mathrm{PS} &= \frac{\max_i \mathrm{Acc}_i-\min_i \mathrm{Acc}_i}{\overline{\mathrm{Acc}_i}}\times 100,
+\end{align}
+where $\mathrm{Acc}_\text{full}$ and $\mathrm{Acc}_\text{UT}$ are the accuracies with 100\% and 0\% margin, and $i$ runs over the four prompts. A positive CDS means that context helps, a negative CDS that it hurts; CR near 100 means robustness to wrong habitats, and CR above 100 means that the composites are classified \emph{better} than the originals. Per-species CDS is defined as 0 when $\mathrm{Acc}_\text{full}=0$. Note that ``full'' denotes the 100\%-margin crop of Experiment~1 and differs from the uncropped baseline of Experiments~2 and~3.
+
+\subsection{Statistics and implementation}
+We report 95\% percentile bootstrap intervals (2{,}000 resamples of the samples, seed 42) for the headline metrics under QuickGELU. No correction for multiple comparisons is applied. All experiments ran in a notebook on one \GPUName{} with PyTorch \TorchVer{}; encoding all variants for all models and both activations takes about \RuntimeMin{} minutes.
+
+\section{Results}
+\subsection{Overview}
+Table~\ref{tab:main} summarises the four experiments. Under both activations BioCLIP has the highest CDS and the lowest CR, ViT-L/14 is the most accurate model and the most prompt-stable, and ViT-B/32 has the highest PS. Bootstrap intervals (QuickGELU) show that BioCLIP's CDS (\QBioCDSLo--\QBioCDSHi\%) is clearly above that of ViT-L/14 (\QVLCDSLo--\QVLCDSHi\%), whereas the CDS of ViT-B/32 (\QVBCDSLo{} to \QVBCDSHi\%) includes zero.
+
+\input{tables/tab_main}
+
+\subsection{Experiment 1: gradual context removal}
+Figure~\ref{fig:curves} shows accuracy and confidence as context is removed. The three models behave differently. For BioCLIP, accuracy is flat between full and loose crops (\QBioLvFull{} and \QBioLvLoose\%) and then falls steeply to \QBioLvUT\% at the ultra-tight crop (CDS \QBioCDS\%); its mean confidence falls only from \QBioLcFull{} to \QBioLcUT\%, so the confidence--accuracy gap at the ultra-tight crop reaches \QBioGap{} points (\GBioGap{} with GELU). ViT-L/14 degrades gracefully (\QVLLvFull{} to \QVLLvUT\%, CDS \QVLCDS\%) with a gap of \QVLGap{} points. ViT-B/32 is non-monotonic: accuracy rises from \QVBLvFull\% at full context to \QVBLvMedium\% at the medium crop and falls to \QVBLvUT\% at the ultra-tight crop, still above the full-context value, giving a slightly negative CDS (\QVBCDS\%; \GVBCDS\% with GELU). Cropping thus helps this small model somewhat, but the effect is not statistically distinguishable from zero.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_context_curves}
+\caption{Experiment 1. Accuracy (a) and mean confidence (b) as context around the animal is removed. Solid: QuickGELU; dashed: GELU.}
+\label{fig:curves}
+\end{figure*}
+
+Per-species CDS (Table~\ref{tab:species}, Fig.~\ref{fig:species}) reveals large differences. Under QuickGELU, opossum, rodent and badger are strongly context dependent for all three models (e.g.\ opossum $80$ / $32$ / $93\%$ for ViT-B/32 / ViT-L/14 / BioCLIP); these animals are small in the frame (Table~\ref{tab:dataset}). Under GELU, BioCLIP's accuracy on opossum drops to zero without context, and ViT-B/32's CDS for rodent becomes strongly negative, so individual species values depend on the activation. Dog and cat show strongly negative CDS for the OpenAI models, i.e.\ cropping \emph{improves} their classification; at full context these animals are confused with other carnivores (Sec.~\ref{sec:errors}). ViT-B/32 has a negative CDS for \QVBNeg{} of 16 species, ViT-L/14 for \QVLNeg{}, and BioCLIP for \QBioNeg{}. Per-species estimates for badger ($n=28$) and mountain lion ($n=44$) are noisy.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_species_cds}
+\caption{Per-species CDS (bars: QuickGELU; white diamonds: GELU), sorted by BioCLIP. CDS is 0 where full-context accuracy is 0.}
+\label{fig:species}
+\end{figure*}
+
+\input{tables/tab_species}
+
+\subsection{Experiment 2: context mismatch}
+Table~\ref{tab:mismatch} lists baseline and mismatch accuracy. BioCLIP retains only \QBioCR\% of its baseline accuracy when the animal is placed on a wrong-habitat background (CI \QBioCRLo--\QBioCRHi\%; \GBioCR\% with GELU), ViT-L/14 retains \QVLCR\% and ViT-B/32 retains all of it or more (CR \QVBCR\%, but the interval \QVBCRLo--\QVBCRHi\% includes 100). The CR above 100 for ViT-B/32 is consistent with its negative CDS: replacing the cluttered scene by a uniform background does not hurt it. Hence CR should not be read as ``robustness'' when it exceeds 100.
+
+\input{tables/tab_mismatch}
+
+Per-habitat accuracies follow an unexpected pattern. In all six model--activation combinations the urban composites yield the \emph{highest} and the desert composites the \emph{lowest} accuracy (e.g.\ ViT-L/14 with QuickGELU: urban \QVLHabUrban\%, desert \QVLHabDesert\%). This ordering should not be over-interpreted: only three species (bobcat, deer, lizard) were assigned the urban background, so habitat and species composition are confounded (Sec.~\ref{sec:limits}).
+
+\subsection{Experiment 3: prompts}
+Table~\ref{tab:prompts} shows that prompt effects depend on the model. The wildlife-specific prompt improves both OpenAI models over the neutral prompt (ViT-B/32 by \QVBPrmWild{} points, ViT-L/14 by \QVLPrmWild{} points under QuickGELU) but \emph{reduces} BioCLIP's accuracy (\QBioPrmWild{} points; \GBioPrmWild{} under GELU). The habitat prompt likewise lowers BioCLIP's accuracy (\QBioPrmHab{} points) while it raises both OpenAI models' (\QVBPrmHab{} and \QVLPrmHab{} points). The ``scientific specimen'' template is the weakest prompt only for ViT-L/14; for ViT-B/32 the neutral template is the weakest, and for BioCLIP a habitat or wildlife template is. ViT-B/32 is the most prompt-sensitive model (PS \QVBPS\%), ViT-L/14 the most stable (\QVLPS\%); BioCLIP lies in between (\QBioPS\%). PS depends strongly on the activation (Sec.~\ref{sec:activation}).
+
+\input{tables/tab_prompts}
+
+\subsection{Experiment 4: background only}
+With the animal blurred, accuracy is above the 6.25\% chance level for all models under QuickGELU (Table~\ref{tab:bg}: \QVBBG{}, \QVLBG{} and \QBioBG\% for ViT-B/32, ViT-L/14 and BioCLIP), but the intervals are wide and all three include the chance level (lower bounds \QVBBGLo{}, \QVLBGLo{} and \QBioBGLo\%). Under GELU, BioCLIP (\GBioBG\%, \GBioBgn{} of 80) and ViT-B/32 (\GVBBG\%) are at or below chance. With $n=\NBg{}$ images the evidence that these models exploit habitat \emph{alone} is therefore weak and depends on the activation; it does not support a strong claim.
+
+\input{tables/tab_bg}
+
+\subsection{Error structure}\label{sec:errors}
+Figure~\ref{fig:confusion} shows full-context confusion matrices. The errors concentrate on a few attractor classes. For ViT-B/32 and BioCLIP, dark and low-contrast nocturnal animals (raccoon, opossum, skunk, rodent) are most often predicted as \emph{badger} (e.g.\ raccoon$\to$badger 70 times for ViT-B/32, opossum$\to$badger 71 times for BioCLIP). ViT-L/14 has a cleaner diagonal; its main errors are cat$\to$bobcat (56), fox$\to$coyote (38) and dog$\to$mountain lion or coyote (30 and 27)---visually similar carnivores. Figure~\ref{fig:qualitative} gives examples of the manipulations and of the resulting predictions: for the dog the ultra-tight crop changes ViT-L/14's prediction from bobcat to deer and BioCLIP's from cat to the correct class, while for the dark opossum frame all models fail without context.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_qualitative}
+\caption{Qualitative examples (QuickGELU, first sample of each species in the sample list, not selected). Titles give the predictions of ViT-B/32, ViT-L/14 and BioCLIP. Top: dog and opossum at full context and with the ultra-tight crop. Bottom: raccoon original and on two wrong-habitat backgrounds; deer with the animal blurred.}
+\label{fig:qualitative}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_confusion}
+\caption{Row-normalised confusion matrices at full context (QuickGELU, neutral prompt). Overall accuracy in the panel titles.}
+\label{fig:confusion}
+\end{figure*}
+
+\subsection{Sensitivity to the activation function}\label{sec:activation}
+Figure~\ref{fig:activation} compares the two activations. Switching from GELU to QuickGELU changes the full-context accuracy of ViT-B/32 by \DeltaVBFull{} points, of ViT-L/14 by \DeltaVLFull{} points and of BioCLIP by \DeltaBioFull{} points. The direction differs between the two OpenAI models (QuickGELU helps ViT-B/32 and hurts ViT-L/14 on this data), so the activation cannot be treated as a nuisance parameter. CDS shifts by \DeltaVBCDS{}, \DeltaVLCDS{} and \DeltaBioCDS{} points and PS by \DeltaVBPS{}, \DeltaVLPS{} and \DeltaBioPS{} points. The qualitative ordering of CDS (BioCLIP $>$ ViT-L/14 $>$ ViT-B/32) is preserved, while PS and the background-only accuracy are fragile. BioCLIP's own configuration uses GELU; QuickGELU is therefore a non-native activation for it.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_activation}
+\caption{Effect of the activation function on full-context accuracy, CDS, CR and PS (16 classes).}
+\label{fig:activation}
+\end{figure*}
+
+\subsection{Day versus night, animal size and calibration}
+Roughly \NightShare\% of the samples are grayscale infrared frames. Context dependence differs strongly between frame types (Table~\ref{tab:daynight}, Fig.~\ref{fig:daynight}a). On colour frames, cropping \emph{helps} both OpenAI models (CDS \DayVBCDS{} and \DayVLCDS\%), whereas on infrared frames context helps them (CDS \NightVBCDS{} and \NightVLCDS\%); BioCLIP depends on context in both regimes, much more at night (\DayBioCDS{} versus \NightBioCDS\%). The aggregated CDS therefore averages two different regimes. Possible reasons---low-resolution, low-contrast crops of small night animals, or a different species and camera mix at night---were not tested here. Across species, CDS is only weakly related to the animal's relative size (Spearman $\rho=$ \RhoVB{}, \RhoVL{}, \RhoBio{} for the three models; none significant, $p\geq\PvalVL{}$, $n=16$ species).
+
+\input{tables/tab_daynight}
+
+Calibration differs sharply. At the ultra-tight crop BioCLIP's mean confidence is \CalConfUTBio\% against an accuracy of \QBioUT\% (expected calibration error \EceUTBio\%), whereas ViT-B/32 and ViT-L/14 have errors of \EceUTVB{} and \EceUTVL\%. Confidence thresholds would therefore filter BioCLIP's context-stripped errors poorly.
+
+\subsection{The control class and the label set}
+The initial design of this study included ``car'' as a non-animal control that should have no habitat dependence. In practice, car boxes fill the frame: for \CarCrop\% of car samples the full-context crop is already the whole image (Fig.~\ref{fig:daynight}b), so all crop levels are the same picture and CDS is zero by construction; BioCLIP additionally classifies no car correctly. A zero CDS for ``car'' thus cannot validate the metric, and the class is excluded from our main analysis. Deer is affected to a smaller degree (\DeerCrop\% of full crops equal the whole image). Table~\ref{tab:17class} shows that removing car and changing the activation shifts accuracy by several points but leaves the main conclusions intact.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_daynight_coverage}
+\caption{(a) CDS on colour (day) and infrared (night) frames, QuickGELU. (b) Share of full-context crops that already cover the entire image; car boxes fill the frame, so CDS is zero by construction.}
+\label{fig:daynight}
+\end{figure*}
+
+\input{tables/tab_17class}
+
+\section{Discussion}\label{sec:discussion}
+\textbf{What the experiments show.} Context contributes substantially to the zero-shot accuracy of BioCLIP and, to a smaller extent, of ViT-L/14, but not measurably to that of ViT-B/32, which is helped slightly by removing clutter. BioCLIP's high CDS, low CR and high overconfidence together mean that it is the model most likely to fail silently when the background changes. A plausible explanation is that its training images (naturalist photographs) show animals in characteristic habitats, and that fine-tuning strengthens species--habitat associations. We stress that our experiment does not test this explanation: BioCLIP differs from ViT-B/32 in patch size and training data at the same time, so ``domain specialisation'' is not isolated as the cause.
+
+\textbf{Context is not uniformly harmful or helpful.} The sign of CDS for the OpenAI models flips between colour and infrared frames and between species. A single dataset-wide CDS hides this structure; we recommend reporting it by frame type and species, together with intervals.
+
+\textbf{Practical implications.} For small models and daytime imagery, detecting the animal and classifying the crop is a reasonable choice, in line with detector-first pipelines~\cite{beery2019}; for infrared imagery the benefit is not guaranteed and should be checked. Prompts should be tuned per model: a wildlife-specific prompt helps the OpenAI models and hurts BioCLIP. Confidence scores of BioCLIP should be recalibrated before they are used for filtering.
+
+\textbf{Reproducibility.} The result depends on details that are easy to overlook: the activation function of the OpenAI weights (Sec.~\ref{sec:activation}), the label set including non-animal classes, and the sampling unit (box versus image). We therefore report two activations and the 17-class variant, and release all code.
+
+\subsection{Limitations}\label{sec:limits}
+(i) The synthetic backgrounds are solid colours with noise; the pasted box keeps its original local surroundings, so ``mismatch'' removes only the global habitat. The OpenCLIP centre crop also removes the left and right image margins in Experiments~2--4. (ii) The species-to-habitat assignment is our own and is confounded with species composition in the per-habitat results. (iii) Sampling is per box, so a few images appear more than once, and the badger and mountain-lion samples are small and come from few cameras. (iv) One region (southern California), three models and no mechanistic analysis; the explanations offered above are hypotheses. (v) Bootstrap intervals treat samples as independent, although boxes from one camera sequence are correlated; they are therefore optimistic. (vi) Background-only results rest on 80 images. (vii) Night/day is inferred from grayscale frames, not from time stamps.
+
+\section{Conclusion}
+We introduced a protocol and three metrics to measure how much zero-shot VLMs rely on habitat context when classifying camera-trap animals. On 16 species from Caltech Camera Traps, BioCLIP is the most context dependent and least robust model, ViT-L/14 is intermediate, and ViT-B/32 shows no measurable benefit from context. The results are sensitive to implementation details---the activation function, the frame type and the choice of control class---which should be reported in future studies. Evaluating more models, additional datasets, photorealistic background synthesis and mechanistic explanations remain future work.
+
+\section*{Reproducibility statement}
+All figures, tables and numbers in this paper are generated from the released notebooks and scripts: one notebook runs the complete experiment (EDA, sampling, four experiments, both activations), a second notebook produces the tables, figures and benchmark comparisons. Per-image predictions, the sample list and the species-to-habitat assignment are included.
+
+\begin{thebibliography}{00}
+\bibitem{swanson2015} A.~Swanson, M.~Kosmala, C.~Lintott, R.~Simpson, A.~Smith, and C.~Packer, ``Snapshot Serengeti, high-frequency annotated camera trap images of 40 mammalian species in an African savanna,'' \emph{Scientific Data}, vol.~2, 150026, 2015.
+\bibitem{burton2015} A.~C. Burton \emph{et al.}, ``Wildlife camera trapping: a review and recommendations for linking surveys to ecological processes,'' \emph{J. Appl. Ecol.}, vol.~52, no.~3, pp.~675--685, 2015.
+\bibitem{norouzzadeh2018} M.~S. Norouzzadeh \emph{et al.}, ``Automatically identifying, counting, and describing wild animals in camera-trap images with deep learning,'' \emph{Proc. Natl. Acad. Sci. USA}, vol.~115, no.~25, pp.~E5716--E5725, 2018.
+\bibitem{tabak2019} M.~A. Tabak \emph{et al.}, ``Machine learning to classify animals in camera trap images: Applications in ecology,'' \emph{Methods Ecol. Evol.}, vol.~10, no.~4, pp.~585--590, 2019.
+\bibitem{willi2019} M.~Willi \emph{et al.}, ``Identifying animal species in camera trap images using deep learning and citizen science,'' \emph{Methods Ecol. Evol.}, vol.~10, no.~1, pp.~80--91, 2019.
+\bibitem{beery2018} S.~Beery, G.~Van~Horn, and P.~Perona, ``Recognition in terra incognita,'' in \emph{Proc. ECCV}, 2018, pp.~456--473.
+\bibitem{schneider2020} S.~Schneider, S.~Greenberg, G.~W. Taylor, and S.~C. Kremer, ``Three critical factors affecting automated image species recognition performance for camera traps,'' \emph{Ecol. Evol.}, vol.~10, no.~7, pp.~3503--3517, 2020.
+\bibitem{beery2019} S.~Beery, D.~Morris, and S.~Yang, ``Efficient pipeline for camera trap image review,'' arXiv:1907.06772, 2019.
+\bibitem{radford2021} A.~Radford \emph{et al.}, ``Learning transferable visual models from natural language supervision,'' in \emph{Proc. ICML}, PMLR 139, 2021, pp.~8748--8763.
+\bibitem{stevens2024} S.~Stevens \emph{et al.}, ``BioCLIP: A vision foundation model for the tree of life,'' in \emph{Proc. IEEE/CVF CVPR}, 2024, pp.~19412--19424.
+\bibitem{ilharco2021} G.~Ilharco \emph{et al.}, ``OpenCLIP,'' Zenodo, 2021, doi:10.5281/zenodo.5143773.
+\bibitem{dosovitskiy2021} A.~Dosovitskiy \emph{et al.}, ``An image is worth 16x16 words: Transformers for image recognition at scale,'' in \emph{Proc. ICLR}, 2021.
+\bibitem{hendrycks2016} D.~Hendrycks and K.~Gimpel, ``Gaussian error linear units (GELUs),'' arXiv:1606.08415, 2016.
+\bibitem{geirhos2020} R.~Geirhos \emph{et al.}, ``Shortcut learning in deep neural networks,'' \emph{Nat. Mach. Intell.}, vol.~2, pp.~665--673, 2020.
+\bibitem{geirhos2019} R.~Geirhos \emph{et al.}, ``ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness,'' in \emph{Proc. ICLR}, 2019.
+\bibitem{xiao2021} K.~Xiao, L.~Engstrom, A.~Ilyas, and A.~Madry, ``Noise or signal: The role of image backgrounds in object recognition,'' in \emph{Proc. ICLR}, 2021.
+\bibitem{singh2020} K.~K. Singh \emph{et al.}, ``Don't judge an object by its context: Learning to overcome contextual bias,'' in \emph{Proc. IEEE/CVF CVPR}, 2020, pp.~11070--11078.
+\bibitem{zhou2022} K.~Zhou, J.~Yang, C.~C. Loy, and Z.~Liu, ``Learning to prompt for vision-language models,'' \emph{Int. J. Comput. Vis.}, vol.~130, no.~9, pp.~2337--2348, 2022.
+\bibitem{lila} ``LILA BC: Labeled Information Library of Alexandria: Biology and Conservation,'' \url{https://lila.science}.
+\end{thebibliography}
+
+\end{document}

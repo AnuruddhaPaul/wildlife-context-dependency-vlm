@@ -1,0 +1,7 @@
+model,context,accuracy,mean_conf,ECE
+ViT-B/32,full,36.82,52.4,15.58
+ViT-B/32,ultra-tight,38.25,49.04,10.8
+ViT-L/14,full,59.24,71.61,12.37
+ViT-L/14,ultra-tight,53.87,64.31,10.44
+BioCLIP,full,45.04,76.55,31.51
+BioCLIP,ultra-tight,30.98,68.87,37.9

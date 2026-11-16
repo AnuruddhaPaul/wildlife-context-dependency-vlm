@@ -1,0 +1,13 @@
+model,prompt,template,acc
+ViT-B/32,neutral,a photo of a {},18.19
+ViT-B/32,habitat,a photo of a {} in its natural habitat,21.63
+ViT-B/32,wildlife,a wildlife camera trap image of a {},25.76
+ViT-B/32,scientific,a {} specimen,19.47
+ViT-L/14,neutral,a photo of a {},41.16
+ViT-L/14,habitat,a photo of a {} in its natural habitat,46.5
+ViT-L/14,wildlife,a wildlife camera trap image of a {},48.35
+ViT-L/14,scientific,a {} specimen,41.03
+BioCLIP,neutral,a photo of a {},24.49
+BioCLIP,habitat,a photo of a {} in its natural habitat,17.62
+BioCLIP,wildlife,a wildlife camera trap image of a {},19.21
+BioCLIP,scientific,a {} specimen,18.58

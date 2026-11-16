@@ -1,0 +1,5 @@
+scenario,recommendation
+Highest accuracy (fixed habitats),ViT-L/14 with the 'wildlife' prompt (45.2 % on original images)
+Novel / changing habitats,"ViT-B/32 (highest Context Robustness, CR = 111 %); BioCLIP lowest at CR = 44 %"
+Limited compute,ViT-B/32 with bbox pre-processing: ultra-tight 38.2 % vs full 36.8 % (CDS -3.9 %)
+Avoid,"BioCLIP outside its training habitats (CR 44 %, confidence-accuracy gap at UT 37.9 pp)"

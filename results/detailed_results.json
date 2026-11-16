@@ -1,0 +1,1436 @@
+{
+  "env": {
+    "python": "3.13.6",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "torch": "2.11.0+cu128",
+    "torch_cuda_build": "12.8",
+    "cuda_available": true,
+    "device_used": "cuda",
+    "gpu_matmul_ok": true,
+    "notes": [],
+    "open_clip": "4.2.2",
+    "gpu_name": "NVIDIA GeForce RTX 5070 Ti",
+    "gpu_capability": "sm_120",
+    "gpu_arch_list_in_build": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ],
+    "gpu_mem_gb": 15.9,
+    "gpu_matmul_max_abs_err_vs_cpu": 0.00012969970703125
+  },
+  "run_meta": {
+    "logit_scale": {
+      "ViT-B/32": 100.0,
+      "ViT-L/14": 100.0,
+      "BioCLIP": 100.0
+    },
+    "model_info": {
+      "ViT-B/32": {
+        "open_clip_name": "ViT-B-32",
+        "pretrained": "openai",
+        "quick_gelu_forced": true,
+        "patch_size": [
+          32,
+          32
+        ],
+        "image_size": [
+          224,
+          224
+        ],
+        "params_total_M": 151.3,
+        "params_visual_M": 87.8
+      },
+      "ViT-L/14": {
+        "open_clip_name": "ViT-L-14",
+        "pretrained": "openai",
+        "quick_gelu_forced": true,
+        "patch_size": [
+          14,
+          14
+        ],
+        "image_size": [
+          224,
+          224
+        ],
+        "params_total_M": 427.6,
+        "params_visual_M": 304.0
+      },
+      "BioCLIP": {
+        "open_clip_name": "hf-hub:imageomics/bioclip",
+        "pretrained": null,
+        "quick_gelu_forced": false,
+        "patch_size": [
+          16,
+          16
+        ],
+        "image_size": [
+          224,
+          224
+        ],
+        "params_total_M": 149.6,
+        "params_visual_M": 86.2
+      }
+    },
+    "hf_hub_cache": "D:\\HUG_MODELs",
+    "timings": {
+      "load_models_s": 5.8,
+      "embed_crop_full_s": 41.1,
+      "embed_crop_loose_s": 41.1,
+      "embed_crop_medium_s": 40.6,
+      "embed_crop_tight_s": 40.6,
+      "embed_crop_ultra_tight_s": 40.8,
+      "embed_orig_s": 45.5,
+      "embed_mismatch_arctic_s": 77.0,
+      "embed_mismatch_desert_s": 58.5,
+      "embed_mismatch_aquatic_s": 75.7,
+      "embed_mismatch_urban_s": 39.5,
+      "embed_bgonly_s": 25.8,
+      "predictions_s": 0.9,
+      "total_s": 532.8
+    },
+    "batch_size": 64,
+    "n_samples": 1572,
+    "smoke": false
+  },
+  "seed": 42,
+  "sample_counts": {
+    "bird": 100,
+    "bobcat": 100,
+    "car": 100,
+    "cat": 100,
+    "coyote": 100,
+    "deer": 100,
+    "dog": 100,
+    "fox": 100,
+    "lizard": 100,
+    "opossum": 100,
+    "rabbit": 100,
+    "raccoon": 100,
+    "rodent": 100,
+    "skunk": 100,
+    "squirrel": 100,
+    "mountain_lion": 44,
+    "badger": 28
+  },
+  "sampling_rule": "per-box sampling (each bbox annotation = 1 sample), up to 100 per species, numpy default_rng(42)",
+  "habitat_mapping": {
+    "badger": [
+      "arctic",
+      "desert"
+    ],
+    "mountain_lion": [
+      "arctic",
+      "desert"
+    ],
+    "opossum": [
+      "arctic",
+      "desert"
+    ],
+    "raccoon": [
+      "arctic",
+      "desert"
+    ],
+    "squirrel": [
+      "arctic",
+      "desert"
+    ],
+    "bobcat": [
+      "arctic",
+      "urban"
+    ],
+    "deer": [
+      "arctic",
+      "urban"
+    ],
+    "lizard": [
+      "aquatic",
+      "urban"
+    ],
+    "bird": [
+      "arctic",
+      "aquatic"
+    ],
+    "coyote": [
+      "arctic",
+      "aquatic"
+    ],
+    "fox": [
+      "arctic",
+      "aquatic"
+    ],
+    "rabbit": [
+      "arctic",
+      "aquatic"
+    ],
+    "rodent": [
+      "arctic",
+      "aquatic"
+    ],
+    "skunk": [
+      "arctic",
+      "aquatic"
+    ],
+    "car": [
+      "desert",
+      "aquatic"
+    ],
+    "cat": [
+      "desert",
+      "aquatic"
+    ],
+    "dog": [
+      "desert",
+      "aquatic"
+    ]
+  },
+  "summary": [
+    {
+      "model": "ViT-B/32",
+      "acc_full": 38.74,
+      "acc_ultra_tight": 40.013,
+      "CDS": -3.284,
+      "acc_baseline_orig": 18.448,
+      "acc_mismatch": 19.847,
+      "CR": 107.586,
+      "n_mismatch": 3144,
+      "PS": 47.349,
+      "PS_denominator_max": 35.982,
+      "PS_denominator_min": 56.207,
+      "BG_only": 14.118,
+      "n_bg": 85,
+      "conf_full": 53.054,
+      "conf_ultra_tight": 49.768,
+      "conf_acc_gap_ultra_tight": 9.755,
+      "neg_cds_species": 8
+    },
+    {
+      "model": "ViT-L/14",
+      "acc_full": 55.916,
+      "acc_ultra_tight": 50.891,
+      "CDS": 8.987,
+      "acc_baseline_orig": 34.033,
+      "acc_mismatch": 28.976,
+      "CR": 85.14,
+      "n_mismatch": 3144,
+      "PS": 33.72,
+      "PS_denominator_max": 28.284,
+      "PS_denominator_min": 39.439,
+      "BG_only": 15.294,
+      "n_bg": 85,
+      "conf_full": 71.253,
+      "conf_ultra_tight": 64.356,
+      "conf_acc_gap_ultra_tight": 13.466,
+      "neg_cds_species": 4
+    },
+    {
+      "model": "BioCLIP",
+      "acc_full": 42.557,
+      "acc_ultra_tight": 27.735,
+      "CDS": 34.828,
+      "acc_baseline_orig": 24.491,
+      "acc_mismatch": 11.069,
+      "CR": 45.195,
+      "n_mismatch": 3144,
+      "PS": 34.395,
+      "PS_denominator_max": 28.052,
+      "PS_denominator_min": 38.989,
+      "BG_only": 3.529,
+      "n_bg": 85,
+      "conf_full": 72.621,
+      "conf_ultra_tight": 66.509,
+      "conf_acc_gap_ultra_tight": 38.773,
+      "neg_cds_species": 0
+    }
+  ],
+  "levels": [
+    {
+      "model": "ViT-B/32",
+      "level": "full",
+      "margin": 1.0,
+      "acc": 38.74,
+      "mean_conf": 53.054,
+      "n": 1572
+    },
+    {
+      "model": "ViT-B/32",
+      "level": "loose",
+      "margin": 0.5,
+      "acc": 43.321,
+      "mean_conf": 56.131,
+      "n": 1572
+    },
+    {
+      "model": "ViT-B/32",
+      "level": "medium",
+      "margin": 0.25,
+      "acc": 43.893,
+      "mean_conf": 55.131,
+      "n": 1572
+    },
+    {
+      "model": "ViT-B/32",
+      "level": "tight",
+      "margin": 0.05,
+      "acc": 42.494,
+      "mean_conf": 51.917,
+      "n": 1572
+    },
+    {
+      "model": "ViT-B/32",
+      "level": "ultra_tight",
+      "margin": 0.0,
+      "acc": 40.013,
+      "mean_conf": 49.768,
+      "n": 1572
+    },
+    {
+      "model": "ViT-L/14",
+      "level": "full",
+      "margin": 1.0,
+      "acc": 55.916,
+      "mean_conf": 71.253,
+      "n": 1572
+    },
+    {
+      "model": "ViT-L/14",
+      "level": "loose",
+      "margin": 0.5,
+      "acc": 59.16,
+      "mean_conf": 71.841,
+      "n": 1572
+    },
+    {
+      "model": "ViT-L/14",
+      "level": "medium",
+      "margin": 0.25,
+      "acc": 57.125,
+      "mean_conf": 70.624,
+      "n": 1572
+    },
+    {
+      "model": "ViT-L/14",
+      "level": "tight",
+      "margin": 0.05,
+      "acc": 52.417,
+      "mean_conf": 66.476,
+      "n": 1572
+    },
+    {
+      "model": "ViT-L/14",
+      "level": "ultra_tight",
+      "margin": 0.0,
+      "acc": 50.891,
+      "mean_conf": 64.356,
+      "n": 1572
+    },
+    {
+      "model": "BioCLIP",
+      "level": "full",
+      "margin": 1.0,
+      "acc": 42.557,
+      "mean_conf": 72.621,
+      "n": 1572
+    },
+    {
+      "model": "BioCLIP",
+      "level": "loose",
+      "margin": 0.5,
+      "acc": 41.985,
+      "mean_conf": 72.7,
+      "n": 1572
+    },
+    {
+      "model": "BioCLIP",
+      "level": "medium",
+      "margin": 0.25,
+      "acc": 38.041,
+      "mean_conf": 71.04,
+      "n": 1572
+    },
+    {
+      "model": "BioCLIP",
+      "level": "tight",
+      "margin": 0.05,
+      "acc": 31.489,
+      "mean_conf": 67.239,
+      "n": 1572
+    },
+    {
+      "model": "BioCLIP",
+      "level": "ultra_tight",
+      "margin": 0.0,
+      "acc": 27.735,
+      "mean_conf": 66.509,
+      "n": 1572
+    }
+  ],
+  "habitat": [
+    {
+      "model": "ViT-B/32",
+      "habitat": "arctic",
+      "correct": 198,
+      "total": 1172,
+      "acc": 16.894
+    },
+    {
+      "model": "ViT-B/32",
+      "habitat": "desert",
+      "correct": 137,
+      "total": 672,
+      "acc": 20.387
+    },
+    {
+      "model": "ViT-B/32",
+      "habitat": "aquatic",
+      "correct": 221,
+      "total": 1000,
+      "acc": 22.1
+    },
+    {
+      "model": "ViT-B/32",
+      "habitat": "urban",
+      "correct": 68,
+      "total": 300,
+      "acc": 22.667
+    },
+    {
+      "model": "ViT-L/14",
+      "habitat": "arctic",
+      "correct": 362,
+      "total": 1172,
+      "acc": 30.887
+    },
+    {
+      "model": "ViT-L/14",
+      "habitat": "desert",
+      "correct": 134,
+      "total": 672,
+      "acc": 19.94
+    },
+    {
+      "model": "ViT-L/14",
+      "habitat": "aquatic",
+      "correct": 293,
+      "total": 1000,
+      "acc": 29.3
+    },
+    {
+      "model": "ViT-L/14",
+      "habitat": "urban",
+      "correct": 122,
+      "total": 300,
+      "acc": 40.667
+    },
+    {
+      "model": "BioCLIP",
+      "habitat": "arctic",
+      "correct": 122,
+      "total": 1172,
+      "acc": 10.41
+    },
+    {
+      "model": "BioCLIP",
+      "habitat": "desert",
+      "correct": 38,
+      "total": 672,
+      "acc": 5.655
+    },
+    {
+      "model": "BioCLIP",
+      "habitat": "aquatic",
+      "correct": 121,
+      "total": 1000,
+      "acc": 12.1
+    },
+    {
+      "model": "BioCLIP",
+      "habitat": "urban",
+      "correct": 67,
+      "total": 300,
+      "acc": 22.333
+    }
+  ],
+  "prompts": [
+    {
+      "model": "ViT-B/32",
+      "prompt": "neutral",
+      "template": "a photo of a {}",
+      "acc": 18.448
+    },
+    {
+      "model": "ViT-B/32",
+      "prompt": "habitat",
+      "template": "a photo of a {} in its natural habitat",
+      "acc": 19.847
+    },
+    {
+      "model": "ViT-B/32",
+      "prompt": "wildlife",
+      "template": "a wildlife camera trap image of a {}",
+      "acc": 28.817
+    },
+    {
+      "model": "ViT-B/32",
+      "prompt": "scientific",
+      "template": "a {} specimen",
+      "acc": 20.483
+    },
+    {
+      "model": "ViT-L/14",
+      "prompt": "neutral",
+      "template": "a photo of a {}",
+      "acc": 34.033
+    },
+    {
+      "model": "ViT-L/14",
+      "prompt": "habitat",
+      "template": "a photo of a {} in its natural habitat",
+      "acc": 43.13
+    },
+    {
+      "model": "ViT-L/14",
+      "prompt": "wildlife",
+      "template": "a wildlife camera trap image of a {}",
+      "acc": 47.455
+    },
+    {
+      "model": "ViT-L/14",
+      "prompt": "scientific",
+      "template": "a {} specimen",
+      "acc": 34.606
+    },
+    {
+      "model": "BioCLIP",
+      "prompt": "neutral",
+      "template": "a photo of a {}",
+      "acc": 24.491
+    },
+    {
+      "model": "BioCLIP",
+      "prompt": "habitat",
+      "template": "a photo of a {} in its natural habitat",
+      "acc": 17.621
+    },
+    {
+      "model": "BioCLIP",
+      "prompt": "wildlife",
+      "template": "a wildlife camera trap image of a {}",
+      "acc": 19.211
+    },
+    {
+      "model": "BioCLIP",
+      "prompt": "scientific",
+      "template": "a {} specimen",
+      "acc": 18.575
+    }
+  ],
+  "per_species": [
+    {
+      "model": "ViT-B/32",
+      "species": "badger",
+      "n": 28,
+      "acc_full": 89.286,
+      "acc_ultra_tight": 60.714,
+      "CDS": 32.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "bird",
+      "n": 100,
+      "acc_full": 61.0,
+      "acc_ultra_tight": 71.0,
+      "CDS": -16.393,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "bobcat",
+      "n": 100,
+      "acc_full": 42.0,
+      "acc_ultra_tight": 38.0,
+      "CDS": 9.524,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "car",
+      "n": 100,
+      "acc_full": 67.0,
+      "acc_ultra_tight": 67.0,
+      "CDS": 0.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "cat",
+      "n": 100,
+      "acc_full": 5.0,
+      "acc_ultra_tight": 13.0,
+      "CDS": -160.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "coyote",
+      "n": 100,
+      "acc_full": 64.0,
+      "acc_ultra_tight": 50.0,
+      "CDS": 21.875,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "deer",
+      "n": 100,
+      "acc_full": 51.0,
+      "acc_ultra_tight": 60.0,
+      "CDS": -17.647,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "dog",
+      "n": 100,
+      "acc_full": 24.0,
+      "acc_ultra_tight": 47.0,
+      "CDS": -95.833,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "fox",
+      "n": 100,
+      "acc_full": 19.0,
+      "acc_ultra_tight": 16.0,
+      "CDS": 15.789,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "lizard",
+      "n": 100,
+      "acc_full": 63.0,
+      "acc_ultra_tight": 73.0,
+      "CDS": -15.873,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "mountain_lion",
+      "n": 44,
+      "acc_full": 50.0,
+      "acc_ultra_tight": 63.636,
+      "CDS": -27.273,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "opossum",
+      "n": 100,
+      "acc_full": 20.0,
+      "acc_ultra_tight": 4.0,
+      "CDS": 80.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "rabbit",
+      "n": 100,
+      "acc_full": 28.0,
+      "acc_ultra_tight": 42.0,
+      "CDS": -50.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "raccoon",
+      "n": 100,
+      "acc_full": 11.0,
+      "acc_ultra_tight": 7.0,
+      "CDS": 36.364,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "rodent",
+      "n": 100,
+      "acc_full": 23.0,
+      "acc_ultra_tight": 9.0,
+      "CDS": 60.87,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "skunk",
+      "n": 100,
+      "acc_full": 42.0,
+      "acc_ultra_tight": 40.0,
+      "CDS": 4.762,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-B/32",
+      "species": "squirrel",
+      "n": 100,
+      "acc_full": 42.0,
+      "acc_ultra_tight": 47.0,
+      "CDS": -11.905,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "badger",
+      "n": 28,
+      "acc_full": 67.857,
+      "acc_ultra_tight": 28.571,
+      "CDS": 57.895,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "bird",
+      "n": 100,
+      "acc_full": 80.0,
+      "acc_ultra_tight": 79.0,
+      "CDS": 1.25,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "bobcat",
+      "n": 100,
+      "acc_full": 71.0,
+      "acc_ultra_tight": 69.0,
+      "CDS": 2.817,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "car",
+      "n": 100,
+      "acc_full": 7.0,
+      "acc_ultra_tight": 7.0,
+      "CDS": 0.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "cat",
+      "n": 100,
+      "acc_full": 6.0,
+      "acc_ultra_tight": 19.0,
+      "CDS": -216.667,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "coyote",
+      "n": 100,
+      "acc_full": 80.0,
+      "acc_ultra_tight": 81.0,
+      "CDS": -1.25,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "deer",
+      "n": 100,
+      "acc_full": 80.0,
+      "acc_ultra_tight": 78.0,
+      "CDS": 2.5,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "dog",
+      "n": 100,
+      "acc_full": 20.0,
+      "acc_ultra_tight": 44.0,
+      "CDS": -120.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "fox",
+      "n": 100,
+      "acc_full": 30.0,
+      "acc_ultra_tight": 29.0,
+      "CDS": 3.333,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "lizard",
+      "n": 100,
+      "acc_full": 73.0,
+      "acc_ultra_tight": 74.0,
+      "CDS": -1.37,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "mountain_lion",
+      "n": 44,
+      "acc_full": 77.273,
+      "acc_ultra_tight": 70.455,
+      "CDS": 8.824,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "opossum",
+      "n": 100,
+      "acc_full": 44.0,
+      "acc_ultra_tight": 30.0,
+      "CDS": 31.818,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "rabbit",
+      "n": 100,
+      "acc_full": 79.0,
+      "acc_ultra_tight": 76.0,
+      "CDS": 3.797,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "raccoon",
+      "n": 100,
+      "acc_full": 57.0,
+      "acc_ultra_tight": 42.0,
+      "CDS": 26.316,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "rodent",
+      "n": 100,
+      "acc_full": 57.0,
+      "acc_ultra_tight": 19.0,
+      "CDS": 66.667,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "skunk",
+      "n": 100,
+      "acc_full": 67.0,
+      "acc_ultra_tight": 45.0,
+      "CDS": 32.836,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "ViT-L/14",
+      "species": "squirrel",
+      "n": 100,
+      "acc_full": 75.0,
+      "acc_ultra_tight": 69.0,
+      "CDS": 8.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "badger",
+      "n": 28,
+      "acc_full": 57.143,
+      "acc_ultra_tight": 17.857,
+      "CDS": 68.75,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "bird",
+      "n": 100,
+      "acc_full": 43.0,
+      "acc_ultra_tight": 36.0,
+      "CDS": 16.279,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "bobcat",
+      "n": 100,
+      "acc_full": 33.0,
+      "acc_ultra_tight": 30.0,
+      "CDS": 9.091,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "car",
+      "n": 100,
+      "acc_full": 0.0,
+      "acc_ultra_tight": 0.0,
+      "CDS": 0.0,
+      "acc_full_is_zero": true
+    },
+    {
+      "model": "BioCLIP",
+      "species": "cat",
+      "n": 100,
+      "acc_full": 50.0,
+      "acc_ultra_tight": 25.0,
+      "CDS": 50.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "coyote",
+      "n": 100,
+      "acc_full": 40.0,
+      "acc_ultra_tight": 27.0,
+      "CDS": 32.5,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "deer",
+      "n": 100,
+      "acc_full": 56.0,
+      "acc_ultra_tight": 44.0,
+      "CDS": 21.429,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "dog",
+      "n": 100,
+      "acc_full": 46.0,
+      "acc_ultra_tight": 46.0,
+      "CDS": 0.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "fox",
+      "n": 100,
+      "acc_full": 46.0,
+      "acc_ultra_tight": 42.0,
+      "CDS": 8.696,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "lizard",
+      "n": 100,
+      "acc_full": 55.0,
+      "acc_ultra_tight": 29.0,
+      "CDS": 47.273,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "mountain_lion",
+      "n": 44,
+      "acc_full": 11.364,
+      "acc_ultra_tight": 9.091,
+      "CDS": 20.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "opossum",
+      "n": 100,
+      "acc_full": 19.0,
+      "acc_ultra_tight": 0.0,
+      "CDS": 100.0,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "rabbit",
+      "n": 100,
+      "acc_full": 66.0,
+      "acc_ultra_tight": 53.0,
+      "CDS": 19.697,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "raccoon",
+      "n": 100,
+      "acc_full": 47.0,
+      "acc_ultra_tight": 20.0,
+      "CDS": 57.447,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "rodent",
+      "n": 100,
+      "acc_full": 19.0,
+      "acc_ultra_tight": 2.0,
+      "CDS": 89.474,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "skunk",
+      "n": 100,
+      "acc_full": 73.0,
+      "acc_ultra_tight": 44.0,
+      "CDS": 39.726,
+      "acc_full_is_zero": false
+    },
+    {
+      "model": "BioCLIP",
+      "species": "squirrel",
+      "n": 100,
+      "acc_full": 55.0,
+      "acc_ultra_tight": 29.0,
+      "CDS": 47.273,
+      "acc_full_is_zero": false
+    }
+  ],
+  "ps_formula_check": [
+    {
+      "model": "ViT-B/32",
+      "PS_reported": 45.7,
+      "PS_recomputed_from_paper_table4_mean_denominator": 45.63,
+      "PS_recomputed_max_denominator": 34.88,
+      "PS_recomputed_min_denominator": 53.55,
+      "PS_from_our_accuracies": 47.35
+    },
+    {
+      "model": "ViT-L/14",
+      "PS_reported": 25.2,
+      "PS_recomputed_from_paper_table4_mean_denominator": 25.28,
+      "PS_recomputed_max_denominator": 22.6,
+      "PS_recomputed_min_denominator": 29.2,
+      "PS_from_our_accuracies": 33.72
+    },
+    {
+      "model": "BioCLIP",
+      "PS_reported": 37.4,
+      "PS_recomputed_from_paper_table4_mean_denominator": 37.52,
+      "PS_recomputed_max_denominator": 29.84,
+      "PS_recomputed_min_denominator": 42.53,
+      "PS_from_our_accuracies": 34.39
+    }
+  ],
+  "paper_comparison": [
+    {
+      "model": "ViT-B/32",
+      "metric": "acc_full",
+      "paper": 33.2,
+      "ours": 38.74,
+      "diff_pp": 5.54,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "acc_ultra_tight",
+      "paper": 34.5,
+      "ours": 40.01,
+      "diff_pp": 5.51,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "CDS",
+      "paper": -4.0,
+      "ours": -3.28,
+      "diff_pp": 0.72,
+      "verdict": "within 2pp"
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "CR",
+      "paper": 86.0,
+      "ours": 107.59,
+      "diff_pp": 21.59,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "PS",
+      "paper": 45.7,
+      "ours": 47.35,
+      "diff_pp": 1.65,
+      "verdict": "within 2pp"
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "BG",
+      "paper": 12.9,
+      "ours": 14.12,
+      "diff_pp": 1.22,
+      "verdict": "within 2pp"
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "conf-acc gap @ultra_tight",
+      "paper": 7.9,
+      "ours": 9.76,
+      "diff_pp": 1.86,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "mismatch acc arctic",
+      "paper": 17.4,
+      "ours": 16.89,
+      "diff_pp": -0.51,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "mismatch acc desert",
+      "paper": 24.3,
+      "ours": 20.39,
+      "diff_pp": -3.91,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "mismatch acc aquatic",
+      "paper": 12.0,
+      "ours": 22.1,
+      "diff_pp": 10.1,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "mismatch acc urban",
+      "paper": 7.3,
+      "ours": 22.67,
+      "diff_pp": 15.37,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "prompt acc neutral",
+      "paper": 18.8,
+      "ours": 18.45,
+      "diff_pp": -0.35,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "prompt acc habitat",
+      "paper": 20.7,
+      "ours": 19.85,
+      "diff_pp": -0.85,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "prompt acc wildlife",
+      "paper": 28.1,
+      "ours": 28.82,
+      "diff_pp": 0.72,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "prompt acc scientific",
+      "paper": 18.3,
+      "ours": 20.48,
+      "diff_pp": 2.18,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "Exp2 baseline acc",
+      "paper": 18.8,
+      "ours": 18.45,
+      "diff_pp": -0.35,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "Exp2 mismatch acc",
+      "paper": 16.2,
+      "ours": 19.85,
+      "diff_pp": 3.65,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "acc_full",
+      "paper": 62.5,
+      "ours": 55.92,
+      "diff_pp": -6.58,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "acc_ultra_tight",
+      "paper": 54.1,
+      "ours": 50.89,
+      "diff_pp": -3.21,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "CDS",
+      "paper": 13.4,
+      "ours": 8.99,
+      "diff_pp": -4.41,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "CR",
+      "paper": 70.0,
+      "ours": 85.14,
+      "diff_pp": 15.14,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "PS",
+      "paper": 25.2,
+      "ours": 33.72,
+      "diff_pp": 8.52,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "BG",
+      "paper": 16.5,
+      "ours": 15.29,
+      "diff_pp": -1.21,
+      "verdict": "within 2pp"
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "conf-acc gap @ultra_tight",
+      "paper": 1.7,
+      "ours": 13.47,
+      "diff_pp": 11.77,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "mismatch acc arctic",
+      "paper": 25.3,
+      "ours": 30.89,
+      "diff_pp": 5.59,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "mismatch acc desert",
+      "paper": 34.8,
+      "ours": 19.94,
+      "diff_pp": -14.86,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "mismatch acc aquatic",
+      "paper": 27.4,
+      "ours": 29.3,
+      "diff_pp": 1.9,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "mismatch acc urban",
+      "paper": 27.0,
+      "ours": 40.67,
+      "diff_pp": 13.67,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "prompt acc neutral",
+      "paper": 40.2,
+      "ours": 34.03,
+      "diff_pp": -6.17,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "prompt acc habitat",
+      "paper": 44.3,
+      "ours": 43.13,
+      "diff_pp": -1.17,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "prompt acc wildlife",
+      "paper": 46.9,
+      "ours": 47.46,
+      "diff_pp": 0.56,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "prompt acc scientific",
+      "paper": 36.3,
+      "ours": 34.61,
+      "diff_pp": -1.69,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "Exp2 baseline acc",
+      "paper": 40.2,
+      "ours": 34.03,
+      "diff_pp": -6.17,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-L/14",
+      "metric": "Exp2 mismatch acc",
+      "paper": 28.1,
+      "ours": 28.98,
+      "diff_pp": 0.88,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "acc_full",
+      "paper": 40.4,
+      "ours": 42.56,
+      "diff_pp": 2.16,
+      "verdict": "within 3pp"
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "acc_ultra_tight",
+      "paper": 25.4,
+      "ours": 27.74,
+      "diff_pp": 2.34,
+      "verdict": "within 3pp"
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "CDS",
+      "paper": 37.0,
+      "ours": 34.83,
+      "diff_pp": -2.17,
+      "verdict": "within 3pp"
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "CR",
+      "paper": 46.5,
+      "ours": 45.19,
+      "diff_pp": -1.31,
+      "verdict": "within 2pp"
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "PS",
+      "paper": 37.4,
+      "ours": 34.39,
+      "diff_pp": -3.01,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "BG",
+      "paper": 11.8,
+      "ours": 3.53,
+      "diff_pp": -8.27,
+      "verdict": "DIFFERS >3pp"
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "conf-acc gap @ultra_tight",
+      "paper": 41.3,
+      "ours": 38.77,
+      "diff_pp": -2.53,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "mismatch acc arctic",
+      "paper": 13.0,
+      "ours": 10.41,
+      "diff_pp": -2.59,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "mismatch acc desert",
+      "paper": 16.4,
+      "ours": 5.65,
+      "diff_pp": -10.75,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "mismatch acc aquatic",
+      "paper": 6.7,
+      "ours": 12.1,
+      "diff_pp": 5.4,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "mismatch acc urban",
+      "paper": 11.3,
+      "ours": 22.33,
+      "diff_pp": 11.03,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "prompt acc neutral",
+      "paper": 24.8,
+      "ours": 24.49,
+      "diff_pp": -0.31,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "prompt acc habitat",
+      "paper": 18.4,
+      "ours": 17.62,
+      "diff_pp": -0.78,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "prompt acc wildlife",
+      "paper": 17.4,
+      "ours": 19.21,
+      "diff_pp": 1.81,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "prompt acc scientific",
+      "paper": 18.3,
+      "ours": 18.58,
+      "diff_pp": 0.28,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "Exp2 baseline acc",
+      "paper": 24.8,
+      "ours": 24.49,
+      "diff_pp": -0.31,
+      "verdict": ""
+    },
+    {
+      "model": "BioCLIP",
+      "metric": "Exp2 mismatch acc",
+      "paper": 11.5,
+      "ours": 11.07,
+      "diff_pp": -0.43,
+      "verdict": ""
+    },
+    {
+      "model": "ViT-B/32",
+      "metric": "medium-crop acc",
+      "paper": 38.7,
+      "ours": 43.89,
+      "diff_pp": 5.19,
+      "verdict": ""
+    }
+  ]
+}

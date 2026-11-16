@@ -1,0 +1,38 @@
+# --- Python environments and downloaded wheels (recreate with requirements.txt) ---
+.venv/
+venv/
+venv_cu128/
+wheels/
+wheels_nb/
+tools/tectonic_bin/
+
+# --- downloaded / derived data (re-created by scripts/00_download.py, 06_build_sample.py, 07_fetch_images.py and the notebooks) ---
+data/raw/
+data/images/
+data/cache/
+
+# --- logs, temporary and build output ---
+logs/
+dist/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- smoke tests and redundant intermediate output ---
+results/*smoke*/
+figures/*smoke*/
+results/animal_only/all_predictions.csv
+results/animal_only/primary/all_predictions.csv
+
+# --- text extracted from private paper drafts ---
+reference/
+
+# --- MODEL WEIGHTS ARE NEVER COMMITTED: see models/README.md ---
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.onnx
+*.h5
+*.npz

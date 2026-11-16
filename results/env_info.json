@@ -1,0 +1,23 @@
+{
+  "python": "3.13.6",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "torch": "2.11.0+cu128",
+  "torch_cuda_build": "12.8",
+  "cuda_available": true,
+  "device_used": "cuda",
+  "gpu_matmul_ok": true,
+  "notes": [],
+  "open_clip": "4.2.2",
+  "gpu_name": "NVIDIA GeForce RTX 5070 Ti",
+  "gpu_capability": "sm_120",
+  "gpu_arch_list_in_build": [
+    "sm_75",
+    "sm_80",
+    "sm_86",
+    "sm_90",
+    "sm_100",
+    "sm_120"
+  ],
+  "gpu_mem_gb": 15.9,
+  "gpu_matmul_max_abs_err_vs_cpu": 0.00012969970703125
+}

@@ -1,0 +1,15 @@
+\begin{table}[t]
+\caption{Experiment 4: accuracy (\%) from images whose animal box is blurred ($n{=}80$; chance $=6.25\%$, i.e.\ 5 of 80). Brackets: 95\% bootstrap CI.}
+\label{tab:bg}
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l rl r}
+\toprule
+Model & QuickGELU & 95\% CI & GELU \\
+\midrule
+ViT-B/32 & 10.0 (8/80) & [3.8, 16.2] & 5.0 (4/80) \\
+ViT-L/14 & 11.2 (9/80) & [5.0, 18.8] & 11.2 (9/80) \\
+BioCLIP & 13.8 (11/80) & [6.2, 22.5] & 3.8 (3/80) \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,53 @@
+model,metric,paper,ours,diff_pp,verdict
+ViT-B/32,acc_full,33.2,38.74,5.54,DIFFERS >3pp
+ViT-B/32,acc_ultra_tight,34.5,40.01,5.51,DIFFERS >3pp
+ViT-B/32,CDS,-4.0,-3.28,0.72,within 2pp
+ViT-B/32,CR,86.0,107.59,21.59,DIFFERS >3pp
+ViT-B/32,PS,45.7,47.35,1.65,within 2pp
+ViT-B/32,BG,12.9,14.12,1.22,within 2pp
+ViT-B/32,conf-acc gap @ultra_tight,7.9,9.76,1.86,
+ViT-B/32,mismatch acc arctic,17.4,16.89,-0.51,
+ViT-B/32,mismatch acc desert,24.3,20.39,-3.91,
+ViT-B/32,mismatch acc aquatic,12.0,22.1,10.1,
+ViT-B/32,mismatch acc urban,7.3,22.67,15.37,
+ViT-B/32,prompt acc neutral,18.8,18.45,-0.35,
+ViT-B/32,prompt acc habitat,20.7,19.85,-0.85,
+ViT-B/32,prompt acc wildlife,28.1,28.82,0.72,
+ViT-B/32,prompt acc scientific,18.3,20.48,2.18,
+ViT-B/32,Exp2 baseline acc,18.8,18.45,-0.35,
+ViT-B/32,Exp2 mismatch acc,16.2,19.85,3.65,
+ViT-L/14,acc_full,62.5,55.92,-6.58,DIFFERS >3pp
+ViT-L/14,acc_ultra_tight,54.1,50.89,-3.21,DIFFERS >3pp
+ViT-L/14,CDS,13.4,8.99,-4.41,DIFFERS >3pp
+ViT-L/14,CR,70.0,85.14,15.14,DIFFERS >3pp
+ViT-L/14,PS,25.2,33.72,8.52,DIFFERS >3pp
+ViT-L/14,BG,16.5,15.29,-1.21,within 2pp
+ViT-L/14,conf-acc gap @ultra_tight,1.7,13.47,11.77,
+ViT-L/14,mismatch acc arctic,25.3,30.89,5.59,
+ViT-L/14,mismatch acc desert,34.8,19.94,-14.86,
+ViT-L/14,mismatch acc aquatic,27.4,29.3,1.9,
+ViT-L/14,mismatch acc urban,27.0,40.67,13.67,
+ViT-L/14,prompt acc neutral,40.2,34.03,-6.17,
+ViT-L/14,prompt acc habitat,44.3,43.13,-1.17,
+ViT-L/14,prompt acc wildlife,46.9,47.46,0.56,
+ViT-L/14,prompt acc scientific,36.3,34.61,-1.69,
+ViT-L/14,Exp2 baseline acc,40.2,34.03,-6.17,
+ViT-L/14,Exp2 mismatch acc,28.1,28.98,0.88,
+BioCLIP,acc_full,40.4,42.56,2.16,within 3pp
+BioCLIP,acc_ultra_tight,25.4,27.74,2.34,within 3pp
+BioCLIP,CDS,37.0,34.83,-2.17,within 3pp
+BioCLIP,CR,46.5,45.19,-1.31,within 2pp
+BioCLIP,PS,37.4,34.39,-3.01,DIFFERS >3pp
+BioCLIP,BG,11.8,3.53,-8.27,DIFFERS >3pp
+BioCLIP,conf-acc gap @ultra_tight,41.3,38.77,-2.53,
+BioCLIP,mismatch acc arctic,13.0,10.41,-2.59,
+BioCLIP,mismatch acc desert,16.4,5.65,-10.75,
+BioCLIP,mismatch acc aquatic,6.7,12.1,5.4,
+BioCLIP,mismatch acc urban,11.3,22.33,11.03,
+BioCLIP,prompt acc neutral,24.8,24.49,-0.31,
+BioCLIP,prompt acc habitat,18.4,17.62,-0.78,
+BioCLIP,prompt acc wildlife,17.4,19.21,1.81,
+BioCLIP,prompt acc scientific,18.3,18.58,0.28,
+BioCLIP,Exp2 baseline acc,24.8,24.49,-0.31,
+BioCLIP,Exp2 mismatch acc,11.5,11.07,-0.43,
+ViT-B/32,medium-crop acc,38.7,43.89,5.19,

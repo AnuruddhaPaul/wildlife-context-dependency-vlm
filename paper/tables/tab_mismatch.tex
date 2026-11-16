@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\caption{Experiment 2: context robustness. Baseline = original image; Mismatch = animal pasted on a wrong-habitat background (accuracy over all 2,944 composites); CR = Mismatch/Baseline. Right: accuracy per synthetic habitat (arctic $n{=}1172$, desert 572, aquatic 900, urban 300). Habitat accuracies mix background and species composition (Sec.~\ref{sec:limits}).}
+\label{tab:mismatch}
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll rrr rrrr}
+\toprule
+Activation & Model & Baseline & Mismatch & CR & Arctic & Desert & Aquatic & Urban \\
+\midrule
+QuickGELU & ViT-B/32 & 15.1 & 16.7 & 111 & 16.9 & 12.4 & 17.1 & 23.0 \\
+ & ViT-L/14 & 35.9 & 30.5 & 85 & 30.9 & 22.2 & 31.8 & 40.7 \\
+ & BioCLIP & 28.6 & 12.5 & 44 & 11.4 & 7.9 & 14.7 & 18.7 \\
+\midrule
+GELU & ViT-B/32 & 14.8 & 15.8 & 106 & 17.3 & 6.5 & 16.9 & 24.0 \\
+ & ViT-L/14 & 41.8 & 32.2 & 77 & 29.3 & 28.8 & 36.6 & 37.3 \\
+ & BioCLIP & 26.2 & 11.8 & 45 & 10.4 & 6.6 & 13.4 & 22.3 \\
+\bottomrule
+\end{tabular}
+\end{table*}

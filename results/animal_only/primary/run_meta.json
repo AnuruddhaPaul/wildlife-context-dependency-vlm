@@ -1,0 +1,74 @@
+{
+  "classes": [
+    "badger",
+    "bird",
+    "bobcat",
+    "cat",
+    "coyote",
+    "deer",
+    "dog",
+    "fox",
+    "lizard",
+    "mountain_lion",
+    "opossum",
+    "rabbit",
+    "raccoon",
+    "rodent",
+    "skunk",
+    "squirrel"
+  ],
+  "n_classes": 16,
+  "random_baseline_pct": 6.25,
+  "activations": [
+    "quickgelu",
+    "gelu",
+    "gelu_tanh",
+    "silu",
+    "relu"
+  ],
+  "native_activation": {
+    "ViT-B/32": "quickgelu",
+    "ViT-L/14": "quickgelu",
+    "BioCLIP": "gelu"
+  },
+  "activation_layers_patched": {
+    "ViT-B/32": 24,
+    "ViT-L/14": 36,
+    "BioCLIP": 24
+  },
+  "feature_validation_max_abs_diff": {
+    "ViT-B/32/quickgelu vs earlier full run": 0.0,
+    "ViT-L/14/quickgelu vs earlier full run": 1.1920928955078125e-07,
+    "BioCLIP/gelu vs earlier full run": 0.0,
+    "ViT-B/32/gelu vs earlier plain_gelu run": 0.0,
+    "ViT-L/14/gelu vs earlier plain_gelu run": 1.1920928955078125e-07
+  },
+  "n_samples": 1472,
+  "n_bg_only": 80,
+  "n_mismatch_per_model_activation": 2944,
+  "batch_size": 64,
+  "timings": {
+    "load_models_s": 7.7,
+    "embed_crop_full_s": 101.5,
+    "embed_crop_loose_s": 101.3,
+    "embed_crop_medium_s": 101.1,
+    "embed_crop_tight_s": 101.2,
+    "embed_crop_ultra_tight_s": 104.8,
+    "embed_orig_s": 104.9,
+    "embed_mismatch_arctic_s": 102.1,
+    "embed_mismatch_desert_s": 68.9,
+    "embed_mismatch_aquatic_s": 86.6,
+    "embed_mismatch_urban_s": 52.5,
+    "embed_bgonly_s": 28.9,
+    "predictions_s": 4.3,
+    "total_s": 965.9
+  },
+  "smoke": false,
+  "hf_hub_cache": "D:\\HUG_MODELs",
+  "primary_activation": {
+    "ViT-B/32": "quickgelu",
+    "ViT-L/14": "quickgelu",
+    "BioCLIP": "gelu"
+  },
+  "note": "native activation per model: QuickGELU (OpenAI weights), GELU (BioCLIP config)"
+}
